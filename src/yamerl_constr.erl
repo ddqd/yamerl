@@ -515,7 +515,9 @@ initialize(Options) ->
       ext_options     = Ext_Options,
       detailed_constr = Detailed
     },
+    % io:format("initialize ~p ~n", [Constr]),
     {ok, Token_Fun} = setup_node_mods(Constr),
+    io:format("~p ~n", [Token_Fun]),
     [{token_fun, Token_Fun} | Parser_Options].
 
 filter_options(Options) ->

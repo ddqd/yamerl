@@ -294,6 +294,7 @@ new(Source) ->
 new(Source, Options) ->
     Options0 = proplists:unfold(Options),
     check_options(Options0),
+    io:format("New Options || ~p", [Options0]),
     #yamerl_parser{
       source       = Source,
       options      = Options0,
@@ -361,6 +362,7 @@ string(String) ->
           Parser  :: yamerl_parser().
 
 string(String, Options) when is_binary(String) ->
+    io:format("String ~p ~n", Options),
     Parser = new(string, Options),
     next_chunk(Parser, String, true);
 string(String, Options) when is_list(String) ->

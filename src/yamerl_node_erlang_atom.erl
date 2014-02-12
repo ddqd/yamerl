@@ -25,6 +25,7 @@
 
 -module(yamerl_node_erlang_atom).
 
+-include_lib("eunit/include/eunit.hrl").
 -include("yamerl_errors.hrl").
 -include("yamerl_tokens.hrl").
 -include("yamerl_nodes.hrl").
@@ -55,15 +56,21 @@ tags() -> [?TAG].
 
 try_construct_token(#yamerl_constr{ext_options = Options} = Constr, undefined,
   #yamerl_scalar{tag = #yamerl_tag{uri = {non_specific, "?"}}} = Token) ->
-    case proplists:get_bool(erlang_atom_autodetection, Options) of
+    ?debugMsg("1"),
+    Res = case proplists:get_bool(erlang_atom_autodetection, Options) of
         true  -> try_construct_token2(Constr, Token);
         false -> unrecognized
-    end;
+    end,
+    ?debugMsg("1"),
+    Res;
+
 try_construct_token(_, _, _) ->
+    ?debugMsg("1"),
     unrecognized.
 
 try_construct_token2(Constr,
   #yamerl_scalar{substyle = plain, text = Text} = Token) ->
+    ?debugMsg("1"),
     %% Check characters to see if it's valid atom.
     case is_valid_atom(Text) of
         true  -> try_construct_token3(Constr, Token, Text);
@@ -72,6 +79,8 @@ try_construct_token2(Constr,
 
 try_construct_token3(#yamerl_constr{ext_options = Options} = Constr,
   Token, Text) ->
+    ?debugMsg("1"),
+    io:format("try constr ~p", Options),
     case proplists:get_bool(erlang_atom_only_if_exist, Options) of
         false ->
             Atom = list_to_atom(Text),
@@ -87,6 +96,7 @@ try_construct_token3(#yamerl_constr{ext_options = Options} = Constr,
     end.
 
 is_valid_atom(Text) ->
+    ?debugFmt("~p", [Text]),
     Opts = [{capture, none}],
     case re:run(Text, "^[a-z][a-zA-Z0-9_@]*$", Opts) of
         match   -> true;
@@ -95,6 +105,7 @@ is_valid_atom(Text) ->
 
 construct_token(#yamerl_constr{ext_options = Options} = Constr, undefined,
   #yamerl_scalar{text = Text} = Token) ->
+    ?debugMsg("1"),
     case proplists:get_bool(erlang_atom_only_if_exist, Options) of
         false ->
             Atom = list_to_atom(Text),
@@ -116,6 +127,7 @@ construct_token(#yamerl_constr{ext_options = Options} = Constr, undefined,
             end
     end;
 construct_token(_, _, Token) ->
+    ?debugMsg("1"),
     Error = #yamerl_parsing_error{
       name   = not_an_erlang_atom,
       token  = Token,
@@ -126,8 +138,10 @@ construct_token(_, _, Token) ->
     throw(Error).
 
 construct_token2(#yamerl_constr{detailed_constr = false}, _, Atom) ->
+    ?debugMsg("1"),
     {finished, Atom};
 construct_token2(#yamerl_constr{detailed_constr = true}, Token, Atom) ->
+    ?debugMsg("1"),
     Pres = yamerl_constr:get_pres_details(Token),
     Node = #yamerl_erlang_atom{
       module   = ?MODULE,
@@ -138,4 +152,5 @@ construct_token2(#yamerl_constr{detailed_constr = true}, Token, Atom) ->
     {finished, Node}.
 
 node_pres(Node) ->
+    ?debugMsg("1"),
     ?NODE_PRES(Node).

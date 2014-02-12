@@ -6,15 +6,24 @@
 
 pre_start_test_() ->
     fun() ->
-        Res = application:start(yamerl),
-        ?assertEqual(Res, ok),
+        application:load(yamerl),
         Set = yamerl_app:set_param(node_mods, [yamerl_node_erlang_atom]),
-        ?assertEqual(Set, ok)
+        Res = application:start(yamerl),
+        ?assertEqual(Res, ok)
+        % dbg:tracer(),
+        % dbg:tp(yamerl_node_erlang_atom, '_', '_', [])
+        % ?assertEqual(Set, ok)
     end.
 
-yamler_constr_apply_option_test_() ->
+yamler_constr_apply_option_one_test_() ->
     fun () ->
-        Atom1 = yamerl:decode("atom", ?NODE_OPTION),
-        Atom2 = yamerl:decode("atom", ?NODE_OPTION),
-        ?assertEqual(Atom2, Atom1)
+        %erlang:l(yamerl_node_erlang_atom),%,:module_info(),
+        Atom = yamerl:decode("atom", ?NODE_OPTION),
+        ?assertEqual([atom], Atom)
+    end.
+
+yamler_constr_apply_option_two_test_() ->
+    fun () ->
+        Atom = yamerl:decode("atom", ?NODE_OPTION),
+        ?assertEqual([atom], Atom)
     end.
