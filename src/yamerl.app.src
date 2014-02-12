@@ -4,6 +4,6 @@
   {registered, []},
   {applications, [kernel, stdlib]},
   {mod, {yamerl_app, []}},
-  {env, [
+  {env, [{node_mods, [yamerl_node_erlang_atom]}
         ]}
  ]}.

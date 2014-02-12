@@ -1,5 +1,6 @@
-.Pbeam
-.log
+*.dump
+*.Pbeam
+*.log
 .swp
 .swo
 .*.swp
