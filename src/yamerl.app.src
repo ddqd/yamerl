@@ -5,28 +5,26 @@
   {applications, [kernel, stdlib]},
   {mod, {yamerl_app, []}},
   {env, [{node_mods,  [
-    yamerl_node_bool,
-    yamerl_node_bool_ext,
-    yamerl_node_bool_json,
-    yamerl_node_erlang_atom,
-    yamerl_node_erlang_fun,
-    yamerl_node_float,
-    yamerl_node_float_ext,
-    yamerl_node_float_json,
-    yamerl_node_int,
-    yamerl_node_int_ext,
-    yamerl_node_int_json,
-    yamerl_node_ipaddr,
-    yamerl_node_map,
-    yamerl_node_null,
-    yamerl_node_null_json,
-    yamerl_node_seq,
-    yamerl_node_size,
-    yamerl_node_str,
-    yamerl_node_str_json,
-    yamerl_node_timestamp
-]}
-
-
+                        yamerl_node_bool,
+                        yamerl_node_bool_ext,
+                        yamerl_node_bool_json,
+                        yamerl_node_erlang_atom,
+                        yamerl_node_erlang_fun,
+                        yamerl_node_float,
+                        yamerl_node_float_ext,
+                        yamerl_node_float_json,
+                        yamerl_node_int,
+                        yamerl_node_int_ext,
+                        yamerl_node_int_json,
+                        yamerl_node_ipaddr,
+                        yamerl_node_map,
+                        yamerl_node_null,
+                        yamerl_node_null_json,
+                        yamerl_node_seq,
+                        yamerl_node_size,
+                        yamerl_node_str,
+                        yamerl_node_str_json,
+                        yamerl_node_timestamp 
+                    ]}
         ]}
  ]}.
